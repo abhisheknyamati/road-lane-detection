@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Road Lane Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-top: 20px;
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        video {
+            margin: 0 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .video-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Road Lane Detection</h1>
+    <form action="/annotate" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".mp4">
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if input_file and processed_file %}
+        <div class="video-container">
+            <div>
+                <div class="video-label">Input Video</div>
+                <video width="640" height="480" controls>
+                    <source src="{{ input_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div>
+                <div class="video-label">Processed Video</div>
+                <video width="640" height="480" controls>
+                    <source src="{{ processed_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -2,22 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Advanced Road Lane Detection</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px auto;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        video {
+            width: 480px;  /* 16:9 aspect ratio */
+            height: 360px;
+        }
+        input[type="file"] {
+            padding: 10px;
+            margin-top: 5px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+    </style>
 </head>
 <body>
-    <h1>Upload Video</h1>
+    <h1>Advanced Road Lane Detection</h1>
     <form action="/annotate" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept=".mp4">
-        <input type="submit" value="Upload">
+        <input type="submit" value="Upload Video">
     </form>
 
-    {% if processed_file %}
-        <h2>Processed Video:</h2>
-        <video width="640" height="480" controls>
-            <source src="{{ processed_file }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    {% endif %}
+    <div id="loading">Processing... <progress></progress></div>
+
+    <div class="video-container">
+        {% if input_file %}
+            <div>
+                <h2>Input Video:</h2>
+                <video controls>
+                    <source src="{{ input_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+        {% if processed_file %}
+            <div>
+                <h2>Processed Video:</h2>
+                <video controls>
+                    <source src="{{ processed_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.querySelector('form').onsubmit = function() {
+            document.getElementById('loading').style.display = 'block';
+        };
+    </script>
 </body>
 </html>
